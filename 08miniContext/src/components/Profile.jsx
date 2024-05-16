@@ -8,8 +8,8 @@ function Profile() {
     return <h2>Not logged in</h2>
   }
   return (
-    <div>Profile : {user}
-      <h1>More Component</h1></div>
+    <div>Profile : {user.userName}
+    </div>
   )
 }
 
