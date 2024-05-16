@@ -5,7 +5,7 @@ function Profile() {
   const { user } = useContext(UserContext)
 
   if (!user) {
-    return <h2>Not logged In</h2>
+    return <h2>Not logged in</h2>
   }
   return (
     <div>Profile : {user}
