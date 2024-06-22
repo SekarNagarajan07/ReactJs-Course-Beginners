@@ -1,6 +1,6 @@
 import conf from "../conf/conf.js";
 
-import { Client, Databases, Query } from "appwrite";
+import { Client, Databases, ID, Query } from "appwrite";
 export class Service {
   client = new Client();
   databases;
@@ -39,10 +39,64 @@ export class Service {
       return false
     }
   }
+
+  async updatePost(slug, { title, content, feacturedImage, status }) {
+    try {
+      return await this.databases.updateDocument(conf.appwriteDatabaseId, conf.appwriteCollectionId, slug, { title, content, feacturedImage, status })
+    } catch (error) {
+      console.log("Application Error" + error);
+      return false
+    }
+  }
+
+  async deletePost(slug) {
+    try {
+      await this.databases.deleteDocument(conf.appwriteDatabaseId, conf.appwriteCollectionId, slug)
+      return true
+    } catch (error) {
+      console.log("Application Error deleteDocument" + error);
+      return false
+    }
+  }
+
+  // Storage Service
+
+  async uploadFile(file) {
+    try {
+      return await this.bucket.createFile(
+        conf.appwriteBucketId,
+        ID.unique(), file
+      )
+    } catch (error) {
+      console.log("Application Error uploadFile" + error);
+      return false
+    }
+  }
+
+  async deleteFile(fileId) {
+    try {
+      return await this.bucket.deleteFile(
+        conf.appwriteBucketId,
+        fileId
+      )
+    } catch (error) {
+      console.log("Application Error deleteFile" + error);
+      return false
+    }
+  }
+
+  getFilePreview(fileId) {
+    return this.bucket.getFilePreview(
+      conf.appwriteBucketId, fileId
+    ).href
+  }
+
+
 }
 
-const client = new Client()
-  .setEndpoint('https://cloud.appwrite.io/v1') // Your API Endpoint
-  .setProject('5df5acd0d48c2'); // Your project ID
 
-const databases = new Databases(client);
+const service = new Service();
+export default service;
+
+
+
