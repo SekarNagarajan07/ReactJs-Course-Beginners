@@ -3,9 +3,7 @@ import ReactDOM from 'react-dom/client'
 import { Provider } from 'react-redux'
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import App from './App.jsx'
-import AuthLayout from "./Components/AuthLayout.jsx"
-import SignUp from "./Components/SignUp.jsx"
-import store from './Store/Store.js'
+import Protected from "./Components/AuthLayout.jsx"
 import './index.css'
 import AddPost from "./pages/AddPost.jsx"
 import AllPosts from "./pages/AllPosts.jsx"
@@ -13,6 +11,8 @@ import EditPost from "./pages/EditPost.jsx"
 import Home from "./pages/Home.jsx"
 import Login from "./pages/Login.jsx"
 import Post from "./pages/Post.jsx"
+import SignUp from "./pages/SignUp.jsx"
+import store from './Store/Store.js'
 const router = createBrowserRouter([
   {
     path: "/",
@@ -24,39 +24,39 @@ const router = createBrowserRouter([
       },
       {
         path: "/login",
-        element: (<AuthLayout authentication={false}>
+        element: (<Protected authentication={false}>
           <Login />
-        </AuthLayout>)
+        </Protected>)
       },
       {
         path: "/SignUp",
-        element: (<AuthLayout authentication={false}>
+        element: (<Protected authentication={false}>
           <SignUp />
-        </AuthLayout>)
+        </Protected>)
       },
       {
         path: "/all-posts",
-        element: (<AuthLayout authentication={true}>
+        element: (<Protected authentication={true}>
           <AllPosts />
-        </AuthLayout>)
+        </Protected>)
       },
       {
         path: "/add-post",
-        element: (<AuthLayout authentication={true}>
+        element: (<Protected authentication={true}>
           <AddPost />
-        </AuthLayout>)
+        </Protected>)
       },
       {
         path: "/edit-post/:slug",
-        element: (<AuthLayout authentication={true}>
+        element: (<Protected authentication={true}>
           <EditPost />
-        </AuthLayout>)
+        </Protected>)
       },
       {
         path: "/post/:slug",
-        element: (<AuthLayout authentication={true}>
+        element: (<Protected authentication={true}>
           <Post />
-        </AuthLayout>)
+        </Protected>)
       }
     ]
   }
