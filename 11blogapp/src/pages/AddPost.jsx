@@ -2,8 +2,10 @@ import React from 'react'
 
 function AddPost() {
   return (
-    <div>
-      <p>Addpost</p>
+    <div className='py-8'>
+      <Container>
+        <PostForm />
+      </Container>
     </div>
   )
 }
